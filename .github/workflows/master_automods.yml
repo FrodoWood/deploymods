@@ -31,6 +31,9 @@ jobs:
           sed -i "s|spring.datasource.url=.*|spring.datasource.url=${{ env.DATABASE_URL }}|g" src/main/resources/application.properties
           sed -i "s|spring.datasource.username=.*|spring.datasource.username=${{ env.DATABASE_USERNAME }}|g" src/main/resources/application.properties
           sed -i "s|spring.datasource.password=.*|spring.datasource.password=${{ env.DATABASE_PASSWORD }}|g" src/main/resources/application.properties
+          sed -i "s|spring.flyway.url=.*|spring.datasource.password=${{ env.DATABASE_URL }}|g" src/main/resources/application.properties
+          sed -i "s|spring.flyway.user=.*|spring.datasource.password=${{ env.DATABASE_USERNAME }}|g" src/main/resources/application.properties
+          sed -i "s|spring.flyway.password=.*|spring.datasource.password=${{ env.DATABASE_PASSWORD }}|g" src/main/resources/application.properties
 
       - name: Build with Maven
         run: mvn clean install -DskipTests
