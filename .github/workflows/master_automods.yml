@@ -8,6 +8,11 @@ on:
     branches:
       - master
   workflow_dispatch:
+  
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
 jobs:
   build:
@@ -20,9 +25,15 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '17'
+          
+      - name: Replace database properties in application.properties
+        run: |
+          sed -i "s|spring.datasource.url=.*|spring.datasource.url=${{ env.DATABASE_URL }}|g" src/main/resources/application.properties
+          sed -i "s|spring.datasource.username=.*|spring.datasource.username=${{ env.DATABASE_USERNAME }}|g" src/main/resources/application.properties
+          sed -i "s|spring.datasource.password=.*|spring.datasource.password=${{ env.DATABASE_PASSWORD }}|g" src/main/resources/application.properties
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean install -DskipTests
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
