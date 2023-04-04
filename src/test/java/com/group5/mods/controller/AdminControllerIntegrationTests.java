@@ -30,9 +30,9 @@ import com.group5.mods.repository.OrderRepository;
 import com.group5.mods.repository.UserRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
-    "spring.datasource.url=jdbc:mysql://localhost:3306/mods_test",
-    "spring.datasource.username=root",
-    "spring.datasource.password=",
+    "spring.datasource.url=jdbc:mysql://mods.mysql.database.azure.com:3306/mods-test",
+    "spring.datasource.username=mods",
+    "spring.datasource.password=Group52023",
     "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver",
     "spring.jpa.hibernate.ddl-auto=create",
 })
